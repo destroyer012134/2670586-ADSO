@@ -20,10 +20,12 @@ public class Segundo {
 
             sumarNotas = sumarNotas + (nota*creditos);
             sumarCreditos = sumarCreditos + creditos;
-            double prom = sumarNotas / cantidad / sumarCreditos;
+            
             contador = contador + 1;
 
         }
+        
+            double prom = sumarNotas / cantidad / sumarCreditos;
 
         System.out.println("Total creditos: "+sumarCreditos);
         System.out.println("El promedio del semestre es: "+prom);

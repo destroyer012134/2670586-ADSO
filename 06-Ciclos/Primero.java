@@ -23,7 +23,7 @@ public class Primero {
             contador = contador + 1;
         }
 
-        double promedio = sumaNotas / cantidad;
+        double promedio = sumarNotas / cantidad;
         System.out.println("=> El promedio del estudiante es: "+promedio);
 
     }
