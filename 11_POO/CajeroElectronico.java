@@ -79,6 +79,7 @@ public class CajeroElectronico{
 	}
 
 	public void registrarTransaccion(String tipo, String numeroTarjeta, int monto, String estado){
+
 		Date fecha = new Date();
 		String texto = fecha.toString()+" - "+tipo+" - "+numeroTarjeta+" - "+monto+" - "+estado;
 
@@ -99,6 +100,25 @@ public class CajeroElectronico{
 			}
 			listaTransacciones[ listaTransacciones.length-1 ] = texto;
 		}
+
+
 	}
+
+    
+
+    public void verHistorialCajero(String user, String pass){
+        registrarTransaccion("HISTORIAL", "000 0000 0000 000", 0, "OK");
+        if (user.equals(usuarioAdmin) && pass.equals(claveAdmin)){
+            for (int i=0; i<listaTransacciones.length; i++){
+                System.out.println(listaTransacciones[i]);
+            
+
+            }
+
+           
+        }else{
+            System.out.println(" =====>  ACCESO DENEGADO  <=======  ");
+        }
+    }
 
 }

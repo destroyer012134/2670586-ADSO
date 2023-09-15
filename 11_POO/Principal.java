@@ -12,5 +12,6 @@ public class Principal{
 		cajero02.abastecerCajero(20000, 20000, 5000, 5000);
 		
 		cajero02.imprimirDetalle();
+        cajero02.verHistorialCajero("asasas", "122332");
 	}
 }
