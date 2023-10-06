@@ -11,7 +11,7 @@ public class Ocho {
     
         public static void main(String[] args) {
             int[] miArreglo = {1, 2, 3, 4, 5};
-    
+
             imprimirArreglo(miArreglo);
         }
     
