@@ -5,14 +5,21 @@ public class Principal{
         
         Perris perro_01 = new Perris("Boxer", "Maria", 108, "Pecas", 30.5, 40);
         Perris perro_02 = new Perris("Susuki", "Miguel", 203, "Princesa", 50.5, 60);
-        
-        perro_01.comer(800);
-
-        perro_01.setNombre("Toby");
-        perro_01.setPropietario("Miguel Mora");
-        
+        Perris perro_03 = new Perris("Golden", "Felipe", 204, "Lola", 60.6, 48);
+                
         perro_01.ImprimirDetalle();
         perro_02.ImprimirDetalle();
+        perro_03.ImprimirDetalle();
+
+        perro_01.jugar(60, 10);
+        perro_02.dormir(4);
+        perro_03.caminar(60);
+
+        perro_01.ImprimirDetalle();
+        perro_02.ImprimirDetalle();
+        perro_03.ImprimirDetalle();
+    
+
         
 
 
