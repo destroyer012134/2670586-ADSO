@@ -85,29 +85,32 @@ public class Perris {
 
     }
 
-    public void jugar(int tiempo, int intensidad) {
-        // Tiempo en minutos;
-        
-        // Fórmula para saber segun la intensidad de ejercicio
-        double ejercicio = 0.035 * intensidad * peso;
-        
-        // Reducir la energia del perro en funcion del tiempo y la intensidad del ejercicio
-        energia = energia - tiempo * (intensidad + 1);
-        
+    public void jugar(int intensidad) {
+        //Para que la intensidad sea del 1 al 10
+        if (intensidad < 1) {
+            intensidad = 1;
+        } else if (intensidad > 10) {
+            intensidad = 10;
+        }
+    
+        // calcular la disminución del peso en funcion de la intensidad
+        double ejercicio = 0.002 * intensidad * peso;  // Ajusta el factor según sea necesario
+    
+        // Reducir la energia del perro en funcion de la intensidad
+        energia = energia - (intensidad * 2);  // Ajusta la fórmula según sea necesario
+    
         // Reducir el peso del perro en funcion del ejercicio
         peso = peso - ejercicio;
-
+    
+        // Asegúrate de que el peso y la energia no sean valores negativos
         if (peso < 0) {
             peso = 0.0;
         }
         if (energia < 0) {
             energia = 0;
         }
-
-
-
-
     }
+    
 
 
 

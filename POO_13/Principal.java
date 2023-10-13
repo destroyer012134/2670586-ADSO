@@ -11,7 +11,8 @@ public class Principal{
         perro_02.ImprimirDetalle();
         perro_03.ImprimirDetalle();
 
-        perro_01.jugar(60, 10);
+        perro_01.comer(1000);
+        perro_01.jugar(10);
         perro_02.dormir(4);
         perro_03.caminar(60);
 
