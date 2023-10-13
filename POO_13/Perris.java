@@ -1,5 +1,3 @@
-import java.sql.PseudoColumnUsage;
-
 public class Perris {
     private String raza; 
     private String propietario; 
