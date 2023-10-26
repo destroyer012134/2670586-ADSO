@@ -1,20 +1,19 @@
 public class Curso {
     //Atributos;
-    int codigo; 
-    String nombre ;
-    String Area_Conocimiento;
-    int Duracion;
-    String [] temas = new String[15];
-    int numTemas;
+    public int codigo; 
+    public  String nombre ;
+    public  String Area_Conocimiento;
+    public  int Duracion;
+    public  int [] temas = new int[15];
+    public int numTemas;
 
     //Constructor; Dar valor inicial a los atributos
-    public Curso(int codigo, String nombre, String Area_Conocimiento, int duracion, int numTemas ){
-        
-        codigo = codigo;
-        nombre = nombre;
-        Area_Conocimiento = Area_Conocimiento;
-        Duracion = duracion;
-        numTemas = 0;
+    public Curso(int codigo, String nombre, String Area_Conocimiento, int duracion, int numTemas) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.Area_Conocimiento = Area_Conocimiento;
+        this.Duracion = duracion;
+        this.numTemas = 0;
     }
 
     //getters
@@ -35,7 +34,7 @@ public class Curso {
         return Duracion;
     }
 
-    public String [] getTemas(){
+    public int [] getTemas(){
         return temas;
     }
 
@@ -57,17 +56,20 @@ public class Curso {
         Duracion = dato;
     }
 
-    public void setTemas(String [] dato){
+    public void setTemas(int [] dato){
         temas = dato;
         
     }
 
     public void ImprimirDetalle(){
+        System.out.println("---------------------------------");
+        System.out.println("Lista de todos los cursos:");
+        System.out.println("---------------------------------");
         System.out.println("+------------------------------------------+");
         System.out.println("| codigo: "+codigo);
         System.out.println("| nombre: "+nombre);
         System.out.println("| Area de conocimiento: "+Area_Conocimiento);
-        System.out.println("| Duracion: "+Duracion);
+        System.out.println("| Duracion: "+Duracion+" hrs");
         System.out.println("| Temas: "+temas);
         System.out.println("+------------------------------------------+");
 
@@ -83,7 +85,7 @@ public class Curso {
     }
 
     //metodo de temas
-    public void agregarTema(String tema) {
+    public void agregarTema(int tema) {
         if (numTemas < 15) {
             temas[numTemas] = tema;
             numTemas++;
