@@ -4,16 +4,15 @@ public class Curso {
     public  String nombre ;
     public  String Area_Conocimiento;
     public  int Duracion;
-    public  int [] temas = new int[15];
     public int numTemas;
 
     //Constructor; Dar valor inicial a los atributos
-    public Curso(int codigo, String nombre, String Area_Conocimiento, int duracion, int numTemas) {
+    public Curso(int codigo, String nombre, String Area_Conocimiento, int duracion, int numTemas ) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.Area_Conocimiento = Area_Conocimiento;
         this.Duracion = duracion;
-        this.numTemas = 0;
+        this.numTemas = numTemas;
     }
 
     //getters
@@ -34,8 +33,8 @@ public class Curso {
         return Duracion;
     }
 
-    public int [] getTemas(){
-        return temas;
+    public int getTemas(){
+        return numTemas;
     }
 
     //setters
@@ -56,8 +55,8 @@ public class Curso {
         Duracion = dato;
     }
 
-    public void setTemas(int [] dato){
-        temas = dato;
+    public void setTemas(int dato){
+        numTemas = dato;
         
     }
 
@@ -70,7 +69,7 @@ public class Curso {
         System.out.println("| nombre: "+nombre);
         System.out.println("| Area de conocimiento: "+Area_Conocimiento);
         System.out.println("| Duracion: "+Duracion+" hrs");
-        System.out.println("| Temas: "+temas);
+        System.out.println("| Temas: "+numTemas);
         System.out.println("+------------------------------------------+");
 
 
@@ -87,7 +86,7 @@ public class Curso {
     //metodo de temas
     public void agregarTema(int tema) {
         if (numTemas < 15) {
-            temas[numTemas] = tema;
+            numTemas = tema;
             numTemas++;
         } else {
             System.out.println("maximo de temas alcanzado.");
