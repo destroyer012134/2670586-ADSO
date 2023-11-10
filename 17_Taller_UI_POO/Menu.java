@@ -10,7 +10,7 @@ public class Menu extends JFrame {
 
     public void initComponents() {
         setTitle("Factura");
-        setSize(800, 1000);
+        setSize(600, 700);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -125,6 +125,23 @@ public class Menu extends JFrame {
         restricciones.gridwidth = 1;
         contenedor.add(etq_cantidad, restricciones);
 
+        
+        JTextField campo_id = new JTextField(15);
+        restricciones.gridx = 0;
+        restricciones.gridy = 9;
+        restricciones.gridwidth = 1;
+        contenedor.add(campo_id, restricciones);
+
+        JTextField campo_nombreProducto = new JTextField(15);
+        restricciones.gridx = 1;
+        restricciones.gridwidth = 1;
+        contenedor.add(campo_nombreProducto, restricciones);
+
+        JTextField campo_cantidad = new JTextField(15);
+        restricciones.gridx = 2;
+        restricciones.gridwidth = 1;
+        contenedor.add(campo_cantidad, restricciones);
+
         JButton boton = new JButton("ADD");
         restricciones.gridx = 3;
         restricciones.gridwidth = 1;
@@ -138,9 +155,9 @@ public class Menu extends JFrame {
         JScrollPane scroll = new JScrollPane(etq_plan_pagos);
         restricciones.gridx = 0;
         restricciones.gridy = 10;
-        restricciones.gridwidth = 4;
+        restricciones.gridwidth = 5;
         restricciones.gridheight = 0;
-        restricciones.weightx = 100;
+        restricciones.weightx = 30;
         restricciones.weighty = 90;
         restricciones.fill = GridBagConstraints.BOTH;
          contenedor.add(scroll, restricciones);
