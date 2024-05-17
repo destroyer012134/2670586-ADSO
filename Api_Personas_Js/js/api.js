@@ -72,44 +72,51 @@ window.onload = function(){
 
 
         
-        function actualizarPersona(){
+        function ActualizarPersona() {
+    
+            let endpoint = ("https://codetesthub.com/API/Actualizar.php");
             let datos = new FormData();
-            datos.append("cedula", 108802);
-            datos.append("nombres", "NUEVO DATO");
-            datos.append("cedula", "NUEVO DATO");
-            datos.append("cedula", "NUEVO DATO");
-            datos.append("cedula", "NUEVO DATO");
-
-    let cedula = document.getElementById("cedula").value;
-    let nombres = document.getElementById("nombres").value;
-    let apellidos = document.getElementById("apellidos").value;
-    let telefono = document.getElementById("telefono").value;
-    let direccion = document.getElementById("direccion").value;
-    let email = document.getElementById("email").value;
-
-    let configuracion = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: dato,
-    };
-
-
-            fetch("https://codetesthub.com/API/Insertar.php")
-            .then(res=> res.json())
+            
+            datos.append("cedula", 3333);
+            datos.append("nombres", "asd");
+            datos.append("apellidos", "actualizar");
+            datos.append("telefono", "NUEVO DATO");
+            datos.append("direccion", "NUEVO DATO");
+            datos.append("email", "NUEVO DATO");
+            
+           
+            
+            let configuracion = {
+                method: "POST",
+                Headers: {
+                    "Accept": "application/json",
+                },
+                body: datos,
+        
+            };
+           
+            fetch(endpoint , configuracion)
+            .then(respuesta => respuesta.json())
             .then(data => {
-                console.log('Respuesta JSON: ');
+                
+                contenPrincipal.innerHTML = "";
+                console.log('respuesta JSON:');
                 console.log(data);
-                mostrarpersonas(data);
-            })
+        
+                cargarPersonas();
+                 
+                
+            });
+        
         }
-
+        
 
         function EliminarPersona() {
     
             let endpoint = ("https://codetesthub.com/API/Eliminar.php");
             let datos = new FormData();
+
+
             
             datos.append("cedula",  2222);
            
