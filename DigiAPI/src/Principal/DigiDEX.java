@@ -10,22 +10,25 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import Utils.ConsumoAPI;
-import Utils.Dijimon;
+import Utils.Digimon;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.Icon;
+import Principal.Habilidades;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
     
 
-public class DijiDEX extends javax.swing.JFrame {
+public class DigiDEX extends javax.swing.JFrame {
 
        ConsumoAPI consumo;
        int pagina;
-       Dijimon listadijimon[];
+       Digimon listadijimon[];
                
                
-    public DijiDEX() {
+    public DigiDEX() {
         this.consumo = new ConsumoAPI();
-        
         initComponents();
         initAlternComponents();
         cargarDigimones();
@@ -49,7 +52,7 @@ public class DijiDEX extends javax.swing.JFrame {
         JsonObject dataJson = JsonParser.parseString(data).getAsJsonObject();
         JsonArray results = dataJson.getAsJsonArray("content");
         
-        listadijimon = new Dijimon[results.size()];
+        listadijimon = new Digimon[results.size()];
         for (int i=0; i<results.size(); i++) {
             JsonObject temp = results.get(i).getAsJsonObject();
          
@@ -58,16 +61,26 @@ public class DijiDEX extends javax.swing.JFrame {
             String url = temp.get("href").getAsString();
             String imagen = temp.get("image").getAsString();
             
-            listadijimon[i] = new Dijimon(id, nombre, url, imagen);
+            System.out.println(nombre);
+            
+            
+            listadijimon[i] = new Digimon(id, nombre, url, imagen);
+            
 
 
-            Digicard tarjeta = new Digicard(listadijimon[i]);
+          Digicard tarjeta = new Digicard(listadijimon[i]);
             Panel_Digimones.add(tarjeta);
-            
-            
-            repaint();
-            revalidate();
+           tarjeta.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.out.print("DIGIMONESSS");
+                    Habilidades carta = new Habilidades();
+                }
+            });
         }
+        Panel_Digimones.repaint();
+        Panel_Digimones.revalidate();
+    
 }
   
     @SuppressWarnings("unchecked")
@@ -82,25 +95,29 @@ public class DijiDEX extends javax.swing.JFrame {
         etq_img.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         etq_img.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-        Panel_Digimones.setLayout(new java.awt.GridLayout(2, 3));
+        Panel_Digimones.setLayout(new java.awt.GridLayout(2, 2));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_Digimones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(371, Short.MAX_VALUE)
-                .addComponent(etq_img, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(355, 355, 355))
+                .addContainerGap(334, Short.MAX_VALUE)
+                .addComponent(etq_img, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(315, 315, 315))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(Panel_Digimones, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(etq_img, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Panel_Digimones, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 69, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(etq_img, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Panel_Digimones, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 43, Short.MAX_VALUE))
         );
 
         pack();
