@@ -17,6 +17,7 @@ import javax.swing.Icon;
 import Principal.Habilidades;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
 
     
 
@@ -61,20 +62,43 @@ public class DigiDEX extends javax.swing.JFrame {
             String url = temp.get("href").getAsString();
             String imagen = temp.get("image").getAsString();
             
-            System.out.println(nombre);
-            
-            
-            listadijimon[i] = new Digimon(id, nombre, url, imagen);
+                JsonArray levelsArray = temp.getAsJsonArray("levels");
+                String[] levels = levelsArray != null ? new String[levelsArray.size()] : new String[0];
+                if (levelsArray != null) {
+                    for (int j = 0; j < levelsArray.size(); j++) {
+                        levels[j] = levelsArray.get(j).getAsJsonObject().get("level").getAsString();
+                    }
+                }
+
+                JsonArray typesArray = temp.getAsJsonArray("types");
+                String[] types = typesArray != null ? new String[typesArray.size()] : new String[0];
+                if (typesArray != null) {
+                    for (int j = 0; j < typesArray.size(); j++) {
+                        types[j] = typesArray.get(j).getAsJsonObject().get("type").getAsString();
+                    }
+                }
+
+                JsonArray attributesArray = temp.getAsJsonArray("attributes");
+                String[] attributes = attributesArray != null ? new String[attributesArray.size()] : new String[0];
+                if (attributesArray != null) {
+                    for (int j = 0; j < attributesArray.size(); j++) {
+                        attributes[j] = attributesArray.get(j).getAsJsonObject().get("attribute").getAsString();
+                    }
+                }
+        listadijimon[i] = new Digimon(id, nombre, url, imagen, levels, types, attributes);
             
 
 
           Digicard tarjeta = new Digicard(listadijimon[i]);
+          int pos = i;
             Panel_Digimones.add(tarjeta);
            tarjeta.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    System.out.print("DIGIMONESSS");
-                    Habilidades carta = new Habilidades();
+                    System.out.print("DIGIMONES");
+                    Habilidades carta = new Habilidades(listadijimon[pos]);
+                    carta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    carta.setVisible(true);
                 }
             });
         }
