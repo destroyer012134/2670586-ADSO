@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Proyectos y Tareas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .scrollable-list {
+            height: 200px; /* Ajusta esta altura según sea necesario */
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Gestion de Proyectos y Tareas</h1>
+
+    <!-- Sección de Proyectos -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <h3>Proyectos</h3>
+            <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalInsertarProyecto">Insertar Proyecto</button>
+            <button class="btn btn-secondary mb-2" data-toggle="modal" data-target="#modalActualizarProyecto">Actualizar Proyecto</button>
+            <button class="btn btn-info mb-2" data-toggle="modal" data-target="#modalEliminarProyecto">Eliminar Proyecto</button>
+            <button class="btn btn-primary mb-2" onclick="listarProyectos()">Obtener Proyectos</button>
+
+            <!-- Lista de proyectos -->
+            <ul id="lista_proyectos" class="list-group"></ul>
+        </div>
+
+        <!-- Sección de Tareas -->
+        <div class="col-md-6">
+            <h3>Tareas</h3>
+            <button class="btn btn-secondary mb-2" data-toggle="modal" data-target="#modalInsertarTarea">Insertar Tarea</button>
+            <button class="btn btn-warning mb-2" data-toggle="modal" data-target="#modalActualizarTarea">Actualizar Tarea</button>
+            <button class="btn btn-danger mb-2" data-toggle="modal" data-target="#modalEliminarTarea">Eliminar Tarea</button>
+            <button class="btn btn-secondary mb-2" onclick="listarTareas()">Obtener Tareas</button>
+
+            <!-- Lista de tareas -->
+            <ul id="lista_tareas" class="list-group"></ul>
+        </div>
+    </div>
+</div>
+
+
+
+        <!-- Modal para Insertar Proyecto -->
+        <div class="modal fade" id="modalInsertarProyecto" tabindex="-1" role="dialog" aria-labelledby="modalInsertarProyectoLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalInsertarProyectoLabel">Insertar Proyecto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-insertar-proyecto">
+                            <div class="form-group">
+                                <label for="nombre-proyecto">Nombre</label>
+                                <input type="text" class="form-control" id="nombre-proyecto" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="descripcion-proyecto">Descripción</label>
+                                <textarea class="form-control" id="descripcion-proyecto" rows="3" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha-inicio-proyecto">Fecha de Inicio</label>
+                                <input type="date" class="form-control" id="fecha-inicio-proyecto" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha-fin-proyecto">Fecha de Fin</label>
+                                <input type="date" class="form-control" id="fecha-fin-proyecto" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" onclick="insertarProyecto()">Insertar Proyecto</button>
+                        </form>
+                        <pre id="respuesta-insertar-proyecto"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Insertar Tarea -->
+        <div class="modal fade" id="modalInsertarTarea" tabindex="-1" role="dialog" aria-labelledby="modalInsertarTareaLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalInsertarTareaLabel">Insertar Tarea</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-insertar-tarea">
+                            <div class="form-group">
+                                <label for="nombre-tarea">Nombre</label>
+                                <input type="text" class="form-control" id="nombre-tarea" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="descripcion-tarea">Descripción</label>
+                                <textarea class="form-control" id="descripcion-tarea" rows="3" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="estado-tarea">Estado</label>
+                                <select class="form-control" id="estado-tarea" required>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="En progreso">En progreso</option>
+                                    <option value="Completada">Completada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha-inicio-tarea">Fecha de Inicio</label>
+                                <input type="date" class="form-control" id="fecha-inicio-tarea" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha-fin-tarea">Fecha de Fin</label>
+                                <input type="date" class="form-control" id="fecha-fin-tarea" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="proyecto-id-tarea">ID del Proyecto</label>
+                                <input type="number" class="form-control" id="proyecto-id-tarea" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" onclick="insertarTarea()">Insertar Tarea</button>
+                        </form>
+                        <pre id="respuesta-insertar-tarea"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <!-- Modal para Actualizar Proyecto -->
+<div class="modal fade" id="modalActualizarProyecto" tabindex="-1" role="dialog" aria-labelledby="modalActualizarProyectoLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalActualizarProyectoLabel">Actualizar Proyecto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-actualizar-proyecto">
+                    <div class="form-group">
+                        <label for="id-proyecto">ID</label>
+                        <input type="number" class="form-control" id="id-proyecto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre-proyecto">Nombre</label>
+                        <input type="text" class="form-control" id="nombre-proyecto-actualizar" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion-proyecto">Descripción</label>
+                        <textarea class="form-control" id="descripcion-proyecto-actualizar" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha-inicio-proyecto">Fecha de Inicio</label>
+                        <input type="date" class="form-control" id="fecha-inicio-proyecto-actualizar" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha-fin-proyecto">Fecha de Fin</label>
+                        <input type="date" class="form-control" id="fecha-fin-proyecto-actualizar" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="actualizarProyecto()">Actualizar Proyecto</button>
+                </form>
+                <pre id="respuesta-actualizar-proyecto"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Modal para Eliminar Proyecto -->
+        <div class="modal fade" id="modalEliminarProyecto" tabindex="-1" role="dialog" aria-labelledby="modalEliminarProyectoLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEliminarProyectoLabel">Eliminar Proyecto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-eliminar-proyecto">
+                            <div class="form-group">
+                                <label for="id-proyecto">ID</label>
+                                <input type="number" class="form-control" id="id-proyecto-eliminar" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger" onclick="eliminarProyecto()">Eliminar Proyecto</button>
+                        </form>
+                        <pre id="respuesta-eliminar-proyecto"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Eliminar Tarea -->
+        <div class="modal fade" id="modalEliminarTarea" tabindex="-1" role="dialog" aria-labelledby="modalEliminarTareaLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEliminarTareaLabel">Eliminar Tarea</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-eliminar-tarea">
+                            <div class="form-group">
+                                <label for="id-tarea">ID</label>
+                                <input type="number" class="form-control" id="id-tarea-eliminar" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger" onclick="eliminarTarea()">Eliminar Tarea</button>
+                        </form>
+                        <pre id="respuesta-eliminar-tarea"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Actualizar Tarea -->
+        <!-- Modal para Actualizar Tarea -->
+<div class="modal fade" id="modalActualizarTarea" tabindex="-1" role="dialog" aria-labelledby="modalActualizarTareaLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalActualizarTareaLabel">Actualizar Tarea</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-actualizar-tarea">
+                    <div class="form-group">
+                        <label for="id-tarea">ID</label>
+                        <input type="number" class="form-control" id="id-tarea" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre-tarea-actualizar">Nombre</label>
+                        <input type="text" class="form-control" id="nombre-tarea-actualizar" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion-tarea-actualizar">Descripción</label>
+                        <textarea class="form-control" id="descripcion-tarea-actualizar" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="estado-tarea-actualizar">Estado</label>
+                        <select class="form-control" id="estado-tarea-actualizar" required>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="En progreso">En progreso</option>
+                            <option value="Completada">Completada</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha-inicio-tarea-actualizar">Fecha de Inicio</label>
+                        <input type="date" class="form-control" id="fecha-inicio-tarea-actualizar" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha-fin-tarea-actualizar">Fecha de Fin</label>
+                        <input type="date" class="form-control" id="fecha-fin-tarea-actualizar" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="proyecto-id-tarea-actualizar">ID del Proyecto</label>
+                        <input type="number" class="form-control" id="proyecto-id-tarea-actualizar" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="actualizarTarea()">Actualizar Tarea</button>
+                </form>
+                <pre id="respuesta-actualizar-tarea"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+        
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="js/consumos.js"></script>    
+        
