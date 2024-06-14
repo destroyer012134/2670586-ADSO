@@ -24,6 +24,7 @@ function mostrarProyectos(data) {
         listahijo.classList.add("list-group-item");
         listahijo.innerHTML = `
             <h2>PROYECTO</h2>
+            <p>ID: ${proyecto.id}</p>
             <p>Nombre: ${proyecto.nombre}</p>
             <p>Descripción: ${proyecto.descripcion}</p>
             <p>Fecha Inicio: ${proyecto.fecha_inicio}</p>
@@ -54,11 +55,14 @@ function mostrarTareas(data) {
         listahijo.classList.add("list-group-item");
         listahijo.innerHTML = `
             <h2>TAREA</h2>
+            <p>ID: ${tarea.id}</p>
             <p>Nombre: ${tarea.nombre}</p>
             <p>Descripción: ${tarea.descripcion}</p>
             <p>Estado: ${tarea.estado}</p>
             <p>Fecha Inicio: ${tarea.fecha_inicio}</p>
             <p>Fecha Fin: ${tarea.fecha_fin}</p>
+            <p>ID Proyecto: ${tarea.proyecto_id}</p>
+
         `;
         listaTareas.appendChild(listahijo);
     }
@@ -147,7 +151,40 @@ function actualizarProyecto() {
 
 
 
+
+
 // Funciones para actualizar tareas
+function actualizarTarea() {
+    const id = document.getElementById('id-tarea').value;
+    const nombre = document.getElementById('nombre-tarea-actualizar').value;
+    const descripcion = document.getElementById('descripcion-tarea-actualizar').value;
+    const estado = document.getElementById('estado-tarea-actualizar').value;
+    const fechaInicio = document.getElementById('fecha-inicio-tarea-actualizar').value;
+    const fechaFin = document.getElementById('fecha-fin-tarea-actualizar').value;
+    const proyectoId = document.getElementById('proyecto-id-tarea-actualizar').value;
+
+    const body = `id=${id}&nombre=${nombre}&descripcion=${descripcion}&estado=${estado}&fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}&proyecto_id=${proyectoId}`;
+
+    fetch('http://localhost/apiphp/API/ActualizarTareas.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: body
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        if (data.status) {
+            listarTareas();
+            $('#modalActualizarTarea').modal('hide');
+        }
+    })
+}
+
+
+
+
 function eliminarTarea() {
     const id = document.getElementById('id-tarea-eliminar').value;
 
